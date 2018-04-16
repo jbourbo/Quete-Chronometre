@@ -1,6 +1,7 @@
 package fr.wildcodeschool.quetes.chrono;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -18,27 +19,35 @@ public class Chrono {
   private boolean rolling;
 
   private JPanel mainPanel;
-  private JButton startStopButton;
+  private JButton startStopButton = null;
   private JButton resetButton;
-  private JLabel chronoCount;
+  private JLabel chronoCount;//    = new JLabel();
+  private JLabel hoursCount;//     = new JLabel();
+  private JLabel minutesCount;//   = new JLabel();
+  private JLabel secondsCount;//   = new JLabel();
+
+  private JLabel dateText;//       = new JLabel();
+  private JLabel timeText;//       = new JLabel();
+  private JPanel buttonsPanel;
+  private JPanel centerPanel;
+  private JPanel currentTimePanel;
   private JLabel countedLabel;
   private JLabel hoursLabel;
   private JLabel minutesLabel;
   private JLabel secondsLabel;
-  private JLabel hoursCount;
-  private JLabel minutesCount;
-  private JLabel secondsCount;
   private JLabel dateLabel;
-  private JLabel dateText;
   private JLabel timeLabel;
-  private JLabel timeText;
-  private JPanel buttonsPanel;
-  private JPanel centerPanel;
-  private JPanel currentTimePanel;
+
+  private boolean isFullScreen;
 
 
-  public Chrono(TimeProvider timeProvider) {
+  public Chrono(TimeProvider timeProvider, boolean isFullScreen) {
+
+    this.isFullScreen = isFullScreen;
     this.timeProvider = timeProvider;
+    this.timeProvider.initialize();
+
+//    startStopButton = new JButton("Start/Stop");
 
     startStopButton.addActionListener(new ActionListener() {
       @Override
@@ -47,6 +56,7 @@ public class Chrono {
       }
     });
 
+//    resetButton = new JButton("Reset");
     resetButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -54,6 +64,7 @@ public class Chrono {
       }
     });
 
+//    mainPanel = new JPanel();
     mainPanel.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
@@ -76,7 +87,12 @@ public class Chrono {
 
   private void reset() {
     timeProvider.reset();
+    refreshCounters();
     frame.repaint();
+  }
+
+  private void initialize(){
+    timeProvider.initialize();
   }
 
   private void hookKeyboard() {
@@ -95,6 +111,9 @@ public class Chrono {
     frame.setContentPane(mainPanel);
     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frame.pack();
+    if(isFullScreen) {
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+    }
     frame.setVisible(true);
   }
 
