@@ -12,6 +12,11 @@ public class DummyTimeProvider implements TimeProvider {
     }
 
     @Override
+    public void initialize() {
+        // nothing
+    }
+
+    @Override
     public boolean isStarted() {
         return true;
     }

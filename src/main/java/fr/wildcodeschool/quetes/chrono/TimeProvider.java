@@ -4,6 +4,7 @@ public interface TimeProvider {
 
     void startStop();
     void reset();
+    void initialize();
 
     boolean isStarted();
 
