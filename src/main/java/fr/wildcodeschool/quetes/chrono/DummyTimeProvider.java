@@ -10,6 +10,10 @@ public class DummyTimeProvider implements TimeProvider {
     public void reset() {
         // nothing
     }
+    @Override
+    public void initialize() {
+        // nothing
+    }
 
     @Override
     public boolean isStarted() {

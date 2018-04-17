@@ -6,6 +6,7 @@ public interface TimeProvider {
     void reset();
 
     boolean isStarted();
+    void initialize();
 
     long getSecondsTotalRuntime();
     long getHoursRuntime();
